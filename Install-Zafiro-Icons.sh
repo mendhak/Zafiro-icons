@@ -7,7 +7,7 @@
 set -euo pipefail 
 
 TEMP_DIR=$(mktemp -d)
-echo $TEMP_DIR
+#echo $TEMP_DIR
 trap 'rm -rf "$TEMP_DIR"' EXIT  # Always clean up the temporary directory on success/fail
 
 USER_ICONS_DIR="$HOME/.local/share/icons"
