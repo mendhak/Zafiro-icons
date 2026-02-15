@@ -4,7 +4,6 @@
 ###########
 #[en]Created required directories
 
-set -euo pipefail 
 
 TEMP_DIR=$(mktemp -d)
 #echo $TEMP_DIR
@@ -51,9 +50,9 @@ if [ -f "master.zip" ]; then
     echo "Dark theme: $USER_ICONS_DIR/Zafiro-Icons-Dark"
     echo "Please select the desired theme in your system settings."
   else
-    echo "no fue posible descomprimir archivo"
+    echo "no fue posible descomprimir archivo. (The file could not be unzipped.)"
   fi
 else
-  echo "no fue posible descargar el archivo"
+  echo "no fue posible descargar el archivo. (The file could not be downloaded.)"
 fi
 
