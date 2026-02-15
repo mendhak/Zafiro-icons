@@ -3,194 +3,57 @@
 #mail: zayronxio@gmail.com
 ###########
 #[en]Created required directories
-echo "Created required directories"
-if [ -d "$HOME/.local/share/icons" ]
-  then
-   #accediendo a directorio de trabajo
-    cd $HOME/.local/share/icons
-     #descarga y descompresion de archivos
-       wget -N https://github.com/zayronxio/Zafiro-icons/archive/refs/heads/master.zip
-          if [ -f "$HOME/.local/share/icons/Zafiro-icons-master" ]
-               then
-                rm -r $HOME/.local/share/icons/Zafiro-icons-master
-           else
-             #descomprimiendo archivo
-               unzip master.zip
-          fi
-            #eliminando versiones anteriores
-            sleep 3s
-              if [ -d "$HOME/.local/share/icons/Zafiro-icons-master" ]
-                then
-                  cd $HOME/.local/share/icons/Zafiro-icons-master
-                  if [ -d "$HOME/.local/share/icons/Zafiro-Icons" ] 
-                then
-                  rm -r $HOME/.local/share/icons/Zafiro-Icons
-                else
-                 echo ""
-              fi
 
-              if [ -d "$HOME/.local/share/icons/Zafiro-icons" ] 
-                then
-                 rm -r $HOME/.local/share/icons/Zafiro-icons
-               else
-                 echo ""
-              fi
- 
-              if [ -d "$HOME/.local/share/icons/Zafiro-icons-Dark" ] 
-                then
-                 rm -r $HOME/.local/share/icons/Zafiro-icons-Dark
-                else
-                 echo ""
-              fi
+set -euo pipefail 
 
-              if [ -d "$HOME/.local/share/icons/Zafiro-Icons-Dark" ] 
-                then
-                 rm -r $HOME/.local/share/icons/Zafiro-Icons-Dark
-                else
-                 echo ""
-              fi
+TEMP_DIR=$(mktemp -d)
+echo $TEMP_DIR
+trap 'rm -rf "$TEMP_DIR"' EXIT  # Always clean up the temporary directory on success/fail
 
-              if [ -d "$HOME/.local/share/icons/Zafiro-Icons-dark" ] 
-               then
-                 rm -r $HOME/.local/share/icons/Zafiro-Icons-dark
-               else
-                 echo ""
-              fi
+USER_ICONS_DIR="$HOME/.local/share/icons"
 
-              if [ -d "$HOME/.local/share/icons/Zafiro-icons-dark" ] 
-               then
-                 rm -r $HOME/.local/share/icons/Zafiro-icons-dark
-               else
-                 echo ""
-              fi
+ZAFIRO_URL="https://github.com/zayronxio/Zafiro-icons/archive/refs/heads/master.zip"
 
-              if [ -d "$HOME/.local/share/icons/zafiro-icons-dark" ] 
-               then
-                 rm -r $HOME/.local/share/icons/zafiro-icons-dark
-               else
-                 echo ""
-              fi
+# Remove previous installations of the icon
+for old_version in \
+    "Zafiro-icons-master" "Zafiro-Icons" "Zafiro-icons" \
+    "Zafiro-icons-Dark" "Zafiro-Icons-Dark" "Zafiro-Icons-dark" "Zafiro-icons-dark" \
+    "zafiro-icons-dark" "zafiro-Icons-dark" "zafiro-Icons-Dark" "zafiro-icons-Dark" \
+    "Zafiro-icons-Light" "Zafiro-Icons-Light" "Zafiro-Icons-light" "Zafiro-icons-light" \
+    "zafiro-icons-light" "zafiro-Icons-light" "zafiro-Icons-Light" "zafiro-icons-Light"; do
+  if [ -d "$USER_ICONS_DIR/$old_version" ]; then
+    rm -rf "$USER_ICONS_DIR/$old_version"
+  fi
+done
 
-              if [ -d "$HOME/.local/share/icons/zafiro-Icons-dark" ] 
-               then
-                 rm -r $HOME/.local/share/icons/zafiro-Icons-dark
-               else
-                 echo ""
-              fi
 
-              if [ -d "$HOME/.local/share/icons/zafiro-Icons-Dark" ] 
-               then
-                 rm -r $HOME/.local/share/icons/zafiro-Icons-Dark
-               else
-                 echo ""
-              fi
+mkdir -p "$USER_ICONS_DIR"
 
-              if [ -d "$HOME/.local/share/icons/zafiro-icons-Dark" ] 
-               then
-                 rm -r $HOME/.local/share/icons/zafiro-icons-Dark
-               else
-                 echo ""
-              fi
 
-              if [ -d "$HOME/.local/share/icons/Zafiro-icons-Light" ] 
-               then
-                 rm -r $HOME/.local/share/icons/Zafiro-icons-Light
-               else
-                 echo ""
-              fi
+cd "$TEMP_DIR"
+wget -q --show-progress "$ZAFIRO_URL" -O master.zip
+sleep 3s
 
-              if [ -d "$HOME/.local/share/icons/Zafiro-Icons-Light" ] 
-               then
-                 rm -r $HOME/.local/share/icons/Zafiro-Icons-Light
-               else
-                 echo ""
-              fi
-
-              if [ -d "$HOME/.local/share/icons/Zafiro-Icons-light" ] 
-               then
-                 rm -r $HOME/.local/share/icons/Zafiro-Icons-light
-               else
-                 echo ""
-              fi
-
-              if [ -d "$HOME/.local/share/icons/Zafiro-icons-light" ] 
-               then
-                 rm -r $HOME/.local/share/icons/Zafiro-icons-light
-               else
-                 echo ""
-              fi
-
-              if [ -d "$HOME/.local/share/icons/zafiro-icons-light" ] 
-               then
-                 rm -r $HOME/.local/share/icons/zafiro-icons-light
-               else
-                 echo ""
-              fi
-
-              if [ -d "$HOME/.local/share/icons/zafiro-Icons-light" ] 
-               then
-                 rm -r $HOME/.local/share/icons/zafiro-Icons-light
-               else
-                 echo ""
-              fi
-
-              if [ -d "$HOME/.local/share/icons/zafiro-Icons-Light" ] 
-               then
-                 rm -r $HOME/.local/share/icons/zafiro-Icons-Light
-               else
-                 echo ""
-              fi
-
-              if [ -d "$HOME/.local/share/icons/zafiro-icons-Light" ] 
-               then
-                 rm -r $HOME/.local/share/icons/zafiro-icons-Light
-              else
-                 echo ""
-              fi
-                   #Copiando directorios
-                   cp -r -a Dark $HOME/.local/share/icons/Zafiro-Icons-Dark
-                   cp -r -a Light $HOME/.local/share/icons/Zafiro-Icons-Light
-                   cp CREDITS $HOME/.local/share/icons/Zafiro-Icons-Dark
-                   cp CREDITS $HOME/.local/share/icons/Zafiro-Icons-Light
-                   cp README.md $HOME/.local/share/icons/Zafiro-Icons-Light
-                   cp README.md $HOME/.local/share/icons/Zafiro-Icons-Dark
-                   cp LICENSE.md $HOME/.local/share/icons/Zafiro-Icons-Dark
-                   cp LICENSE.md $HOME/.local/share/icons/Zafiro-Icons-Light
-                   cd
-                   rm -r $HOME/.local/share/icons/Zafiro-icons-master
-                   rm $HOME/.local/share/icons/master.zip
-                   rm -r  $HOME/.local/share/icons/github.com
-                else
-                 echo "no fue posible descomprimir archivo"
-              fi 
-           else
-    mkdir $HOME/.local/share/icons
-     cd $HOME/.local/share/icons
-      wget https://github.com/zayronxio/Zafiro-icons/archive/refs/heads/master.zip
-       if [ -f "$HOME/.local/share/icons/master.zip" ]
-        then 
-         unzip master.zip
-          sleep 3s
-          if [ -d "$HOME/.local/share/icons/Zafiro-icons-master" ]
-            then
-             cd $HOME/.local/share/icons/Zafiro-icons-master
-               #Copiando directorios
-                 cp -r -a Dark $HOME/.local/share/icons/Zafiro-Icons-Dark
-                 cp -r -a Light $HOME/.local/share/icons/Zafiro-Icons-Light
-                 cp CREDITS $HOME/.local/share/icons/Zafiro-Icons-Dark
-                 cp CREDITS $HOME/.local/share/icons/Zafiro-Icons-Light
-                 cp README.md $HOME/.local/share/icons/Zafiro-Icons-Light
-                 cp README.md $HOME/.local/share/icons/Zafiro-Icons-Dark
-                 cp LICENSE.md $HOME/.local/share/icons/Zafiro-Icons-Dark
-                 cp LICENSE.md $HOME/.local/share/icons/Zafiro-Icons-Light
-                 cd
-                 rm -r $HOME/.local/share/icons/Zafiro-icons-master
-                 rm $HOME/.local/share/icons/master.zip
-                 rm -r  $HOME/.local/share/icons/Install-Zafiro-Icons.sh
-            else
-              echo "no fue posible descomprimir archivo"
-          fi
-        else
-          echo "no fue posible descargar el archivo"
-       fi
+if [ -f "master.zip" ]; then
+  unzip master.zip 
+  if [ -d "Zafiro-icons-master" ]; then
+    cp -r "Zafiro-icons-master/Dark" "$USER_ICONS_DIR/Zafiro-Icons-Dark"
+    cp -r "Zafiro-icons-master/Light" "$USER_ICONS_DIR/Zafiro-Icons-Light"
+    cp "Zafiro-icons-master/CREDITS" "$USER_ICONS_DIR/Zafiro-Icons-Dark"
+    cp "Zafiro-icons-master/CREDITS" "$USER_ICONS_DIR/Zafiro-Icons-Light"
+    cp "Zafiro-icons-master/README.md" "$USER_ICONS_DIR/Zafiro-Icons-Light"
+    cp "Zafiro-icons-master/README.md" "$USER_ICONS_DIR/Zafiro-Icons-Dark"
+    cp "Zafiro-icons-master/LICENSE.md" "$USER_ICONS_DIR/Zafiro-Icons-Dark"
+    cp "Zafiro-icons-master/LICENSE.md" "$USER_ICONS_DIR/Zafiro-Icons-Light"
+    echo "---"
+    echo "Zafiro Icons have been successfully installed."
+    echo "Light theme: $USER_ICONS_DIR/Zafiro-Icons-Light"
+    echo "Dark theme: $USER_ICONS_DIR/Zafiro-Icons-Dark"
+    echo "Please select the desired theme in your system settings."
+  else
+    echo "no fue posible descomprimir archivo"
+  fi
+else
+  echo "no fue posible descargar el archivo"
 fi
+
